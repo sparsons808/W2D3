@@ -6,6 +6,12 @@ class Board
         @size = num * num
     end
 
+    def self.print_grid(array)
+        array.each do |row|
+            puts row.join(" ")
+        end
+    end
+
     def [](ar_row_collom)
         @grid[ar_row_collom[0]][ar_row_collom[1]]
     end
@@ -68,11 +74,11 @@ class Board
         hidden_ships
     end
 
-    def self.print_grid(array)
-        array.each do |row|
-            puts row.join(" ")
-        end
+    def cheat
+        Board.print_grid(@grid)
     end
 
-
+    def print
+        Board.print_grid(self.hidden_ships_grid)
+    end
 end

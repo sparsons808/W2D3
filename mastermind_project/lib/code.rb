@@ -48,27 +48,28 @@ class Code
     end
     count
   end
-  # require "byebug"
-  def num_near_matches(code)
-    # debugger
-    arr_of_index_match = []
-    (0...code.length).each do |i|
-      if code[i] == self[i]
-        arr_of_index_match << i
+  def num_near_matches(guess)
+    secrete_code = self.pegs.dup
+    guess_2 = guess.pegs.dup
+
+    (0...secrete_code.size).each do |i|
+      if secrete_code[i] == guess_2[i]
+        secrete_code[i] = nil
+        guess_2[i] = nil
       end
     end
-    # debugger
+
+    secrete_code.delete(nil)
+    guess_2.delete(nil)
+
     count = 0
-    @pegs.each_with_index do |color_1, i_1|
-      code.pegs.each_with_index do |color_2, i_2|
-        # debugger
-        if  ( color_1 == color_2 && i_1 > i_2 ) && ( !arr_of_index_match.include?(i_1) || arr_of_index_match.include?(i_2) )
+    guess_2.each_with_index do |ele, i|
+      if secrete_code.include?(ele)
         count += 1
-        # debugger
-        end
+        secrete_code.delete_at(secrete_code.index(ele))
       end
     end
-    # debugger
+
     count
   end
 
